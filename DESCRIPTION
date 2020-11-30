@@ -8,7 +8,8 @@ Description: A Git LFS client library compatible with Giftless
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Suggests: 
-    testthat
-    httr
-    digest
+Imports:
+    httr,
+    digest,
+    jsonlite
+    
