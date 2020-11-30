@@ -1,7 +1,7 @@
 #' Upload a file to LFS storage
 #'
 #' @return Giftless API token
-upload <- function(file_path, repo, dataset, token, transfers=c("multipart-basic")) {
+lfs_upload <- function(file_path, repo, dataset, token, transfers=c("multipart-basic", "basic")) {
   hash <- digest(file=file_path, algo='sha256')
   size <- file.size(file_path)
   object <- list(list(oid = hash, size = size))

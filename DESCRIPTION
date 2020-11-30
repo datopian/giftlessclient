@@ -1,13 +1,14 @@
 Package: giftlessclient
 Type: Package
-Title: What the Package Does (Title Case)
+Title: A Git LFS client library
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Patricio Del Boca
+Maintainer: Patricio Del Boca <patricio.delboca@datopian.com>
+Description: A Git LFS client library compatible with Giftless
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Suggests: 
     testthat
+    httr
+    digest
