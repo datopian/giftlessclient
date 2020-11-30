@@ -10,7 +10,7 @@ lfs_upload <- function(file_path, repo, dataset, token, transfers=c("multipart-b
   resp <- batch(prefix, object, token, transfers)
 
   upload_specs <- resp$objects[[1]]
-  transfer <- transfers[1]
+  transfer <- resp$transfer
   if (transfer == 'multipart-basic'){
     print("Initiating multipart-basic upload")
     multipart_upload(file_path, upload_specs)
