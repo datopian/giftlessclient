@@ -19,7 +19,6 @@ upload_part <- function(file_path, href, pos, size, want_digest=NULL){
   headers <- add_headers()
   if(!is.null(want_digest)){
     part_digest <- calculate_want_digest(data, want_digest)
-    print(part_digest)
     headers <- add_headers(`Content-MD5` = part_digest)
   }
 
