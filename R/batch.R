@@ -13,12 +13,12 @@ batch <- function(prefix, objects, token, transfers) {
   body <- list(
     operation = c("upload"),
     transfers = transfers,
-    ref = list(name = "refs/heads/contrib"),
+    ref = list(name = "refs/heads/master"),
     objects = objects
     )
 
   resp <- POST(url, body = body, config = header, encode = 'json')
-  parsed <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+  parsed <- parse_response(resp)
 
   if (http_error(resp)) {
     stop(
