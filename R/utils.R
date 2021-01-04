@@ -37,7 +37,7 @@ calculate_want_digest <- function(data, want_digest){
     encoded_digest <- openssl::base64_encode(md5)
     return(encoded_digest)
   } else {
-    stop(paste(want_diggest, "method for want_diggest is not supported."), call. = FALSE)
+    stop(paste(want_digest, "method for want_digest is not supported."), call. = FALSE)
   }
 }
 
