@@ -2,16 +2,11 @@
 #'
 #' @return Giftless API token
 multipart_upload <- function(file_path, upload_specs) {
-  if(!'actions' %in% names(upload_specs)){
-    print("No actions, file already exists")
-    return
-  }
-
   actions <- upload_specs$actions
 
   for (part in actions$parts) {
     print("Uploading part")
-    upload_part(file_path, part$href, part$pos, part$size, part$want_diggest)
+    upload_part(file_path, part$href, part$pos, part$size, part$want_digest)
   }
 
   if('commit' %in% names(actions)){
@@ -21,11 +16,11 @@ multipart_upload <- function(file_path, upload_specs) {
         commit$href,
         config = do.call(add_headers, commit$header),
         body = commit$body,
-        encode='char'
+        encode='raw'
         )
 
     if (http_error(resp)) {
-      parsed <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+      parsed <- parse_response(resp)
       stop(
         sprintf("Error when executing commit action [%s]\n%s", status_code(resp), parsed$message),
         call. = FALSE
