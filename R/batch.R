@@ -1,15 +1,17 @@
 #' Send a batch request to the LFS server
 #'
-#' @return Signed URL to
-batch <- function(prefix, objects, token, transfers) {
-  path <- paste0(prefix, '/objects/batch')
-  url <- modify_url(get_lfs_server_url(), path = path)
+#' @return List with upload specifications for the given objects
+batch <- function(prefix, objects, token, transfers, headers = c()) {
+  batch_path <- paste0(prefix, '/objects/batch')
+  url <- paste(get_lfs_server_url(), batch_path, sep = '/')
 
   header <- add_headers(
     Accept = "application/vnd.git-lfs+json",
     `Content-Type` = "application/vnd.git-lfs+json",
-    Authorization = paste('Bearer', token)
+    Authorization = paste('Bearer', token),
+    .headers = headers
   )
+
   body <- list(
     operation = c("upload"),
     transfers = transfers,
