@@ -1,6 +1,4 @@
 #' Do a multipart upload
-#'
-#' @return Giftless API token
 multipart_upload <- function(file_path, upload_specs) {
   actions <- upload_specs$actions
 
