@@ -1,4 +1,11 @@
-#' Do a multipart upload
+#' Do a file upload using basic transfer adapter
+#'
+#' Gets the upload action from the upload specs and makes a PUT request to the
+#' server for each part specified. After uploading all the parts it executes
+#' a commit and verify action.
+#'
+#' @param file_path character. The path of the file to be uploaded.
+#' @param upload_specs A list of upload specs returned by the batch call.
 multipart_upload <- function(file_path, upload_specs) {
   actions <- upload_specs$actions
 

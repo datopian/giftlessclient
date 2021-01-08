@@ -1,5 +1,15 @@
 #' Upload a file to LFS storage
 #'
+#' @param file_path character. The path of the file to be uploaded.
+#' @param repo character. The name of repository where the dataset lives.
+#' @param dataset character. The name of the dataset where the file is gonna
+#' be uploaded.
+#' @param token character. Authorization token.
+#' @param transfers character vector. A vector containing the transfer methods
+#' to be negotiated with the server.
+#' @param headers named character vector. Values to be added to the headers of
+#' the batch request to the LFS server.
+#'
 #' @return list with sha256 and size of the object
 lfs_upload <- function(file_path, repo, dataset, token, transfers=c("multipart-basic", "basic"), headers = c()) {
   hash <- digest(file=file_path, algo='sha256')

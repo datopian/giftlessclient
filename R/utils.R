@@ -1,6 +1,6 @@
-#' Get the Giftless API url from the CKANR_DEFAULT_URL environment variable
+#' Get the Giftless API url from the LFS_SERVER_URL environment variable
 #'
-#' @return Base url for Giftless API requests
+#' @return Full URL for Giftless API requests
 get_lfs_server_url <- function() {
   url <- Sys.getenv("LFS_SERVER_URL")
   if (identical(url, "")){
@@ -9,7 +9,20 @@ get_lfs_server_url <- function() {
   url
 }
 
-#' Uploads a file part to a signed_url given size and initial file offset.
+#' Uploads a file part
+#'
+#' Uploads a file part to a signed_url given size and initial position. This
+#' method will read a chunk of the file using readBin. If want_digest is set it
+#' will also calculate the digest and send it as a part of the header (only
+#' MD5 is supported)
+#'
+#' @param file_path character. string naming a file
+#' @param href character. A signed URL to upload the file to
+#' @param pos numeric. A file position (relative to the origin specified by
+#' origin), or NA.
+#' @param size numeric. The (maximal) number of records to be read.
+#' @param want_diggest character. A string specifying the digest algorithm to
+#' use. (Currently only contentMD5 is supported)
 upload_part <- function(file_path, href, pos, size, want_digest=NULL){
   con <- file(file_path, 'rb')
   on.exit(close(con))
@@ -30,6 +43,12 @@ upload_part <- function(file_path, href, pos, size, want_digest=NULL){
 
 #' Calculates a digest for the uploading part
 #'
+#' @param data raw object.
+#' @param want_diggest character. A string specifying the digest algorithm to
+#' use. (Currently only contentMD5 is supported)
+#'
+#' @returns caracter. The digest string: for contentMD5 it returns a base64
+#' encoded digest.
 calculate_want_digest <- function(data, want_digest){
   if(want_digest == 'contentMD5'){
     md5 <- digest(data, algo = 'md5', serialize = FALSE, raw=TRUE)
@@ -40,8 +59,11 @@ calculate_want_digest <- function(data, want_digest){
   }
 }
 
-#' Parse response given the return type of the API
+#' Parse the content of the LFS server response
 #'
+#'@param resp response object.
+#'
+#'@returns A parsed response.
 parse_response <- function(resp){
   if(http_type(resp) == "application/vnd.git-lfs+json") {
     parsed <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)

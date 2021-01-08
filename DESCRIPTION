@@ -13,4 +13,4 @@ Depends:
     digest,
     jsonlite,
     openssl
-    
+RoxygenNote: 7.1.1
