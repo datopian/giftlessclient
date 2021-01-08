@@ -1,6 +1,11 @@
 #' Do a file upload using basic transfer adapter
 #'
-#' @return Giftless API token
+#' Gets the upload action from the upload specs and makes a PUT request to
+#' upload the file to the server. After uploading the file it executes
+#' a commit and verify action.
+#'
+#' @param file_path character. The path of the file to be uploaded.
+#' @param upload_specs A list of upload specs returned by the batch call.
 basic_upload <- function(file_path, upload_specs) {
   if(!'actions' %in% names(upload_specs)){
     print("No actions, file already exists")

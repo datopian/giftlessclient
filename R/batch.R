@@ -1,5 +1,13 @@
 #' Send a batch request to the LFS server
 #'
+#' @param prefix character. The lfs prefix in the form organization/repo
+#' @param objects list. A list of objects containing oid and size for each one.
+#' @param token character. An authorization token.
+#' @param transfers character vector. A vector containing the transfer methods
+#' to be negotiated with the server.
+#' @param headers named character vector. Values to be added to the headers of
+#' the batch request to the LFS server..
+#'
 #' @return List with upload specifications for the given objects
 batch <- function(prefix, objects, token, transfers, headers = c()) {
   batch_path <- paste0(prefix, '/objects/batch')
