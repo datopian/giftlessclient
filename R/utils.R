@@ -82,3 +82,15 @@ parse_response <- function(resp){
 
   stop("Couldn't parse response data from the API.", call. = FALSE)
 }
+
+#' Wrapper for R's file.size(...) function
+#'
+#' This is a workaround for situations where R returns a scientific notation
+#' value.
+#'
+#'@param file_path character. string naming a file
+#'
+#'@returns A character with the size in KB of the file
+file_size <- function(file_path){
+  format(file.size(file_path), scientific = FALSE)
+}
