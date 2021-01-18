@@ -9,8 +9,10 @@
 multipart_upload <- function(file_path, upload_specs) {
   actions <- upload_specs$actions
 
-  for (part in actions$parts) {
-    print("Uploading part")
+  parts_length <- length(actions$parts)
+  for (i in 1:parts_length) {
+    part <- actions$parts[[i]]
+    print(sprintf("Uploading part %i of %i.", i, parts_length))
     upload_part(file_path, part$href, part$pos, part$size, part$want_digest)
   }
 
@@ -45,5 +47,13 @@ multipart_upload <- function(file_path, upload_specs) {
       body = body,
       encode = 'json'
       )
+
+    if (http_error(resp)) {
+      parsed <- parse_response(resp)
+      stop(
+        sprintf("Error when executing verify action [%s]\n%s", status_code(resp), parsed$message),
+        call. = FALSE
+      )
+    }
   }
 }
