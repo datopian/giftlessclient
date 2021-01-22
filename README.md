@@ -19,7 +19,7 @@ devtools::install_github("datopian/giftlessclient")
 To use `giftlessclient` you need to set up your lfs server URL in a environment variable:
 
 ``` r
-Sys.setenv("LFS_SERVER_URL" = 'http://www.my-lfs-server.com')
+Sys.setenv("LFS_SERVER_URL" = 'https://www.my-lfs-server.com')
 ```
 
 
@@ -80,7 +80,7 @@ batch(lfs_prefix, objects, authz_token, transfer = c('multipart-basic'))
 
 ```
 
-* `lfs_prefix`: add to LFS server url e.g. if `lfs_prefix <- "abc"` and client was created with server url of `https://git-lfs.example.com` then batch request is made by POST to `https://git-lfs.example.com/abc/objects/batch`
+* `lfs_prefix`: add to LFS server url e.g. if `lfs_prefix <- "abc"` and client was created with server url of `https://www.my-lfs-server.com` then batch request is made by POST to `https://www.my-lfs-server.com/abc/objects/batch`
 * `objects`: a list of objects to upload. 
   * `oid`: String OID (`sha256`) of the LFS object.
   * `size`: Byte size of the LFS object. Must be at least zero.
